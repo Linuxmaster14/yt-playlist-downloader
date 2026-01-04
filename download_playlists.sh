@@ -21,6 +21,9 @@ if [[ ! -f "$COOKIES_FILE" ]]; then
     exit 1
 fi
 
+# Resolve absolute path for cookies file to avoid issues when changing directories
+COOKIES_FILE=$(realpath "$COOKIES_FILE")
+
 # Check if playlists file exists
 if [[ ! -f "$PLAYLISTS_FILE" ]]; then
     echo -e "${RED}Error: Playlists file not found at $PLAYLISTS_FILE${NC}"
@@ -52,7 +55,7 @@ while IFS='|' read -r channel_name playlist_url || [[ -n "$channel_name" ]]; do
     
     # Download the playlist (skip already downloaded videos by checking existing files)
     yt-dlp \
-        --cookies "../$COOKIES_FILE" \
+        --cookies "$COOKIES_FILE" \
         -f "bv*+ba/b" \
         --merge-output-format mp4 \
         --no-overwrites \
