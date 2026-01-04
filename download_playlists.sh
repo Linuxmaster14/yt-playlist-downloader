@@ -58,7 +58,7 @@ while IFS='|' read -r channel_name playlist_url || [[ -n "$channel_name" ]]; do
         --cookies "$COOKIES_FILE" \
         -f "bv*+ba/b" \
         --merge-output-format mp4 \
-        --no-overwrites \
+        --no-force-overwrites \
         -o "%(playlist_title)s/%(title)s.%(ext)s" \
         "$playlist_url"
     
