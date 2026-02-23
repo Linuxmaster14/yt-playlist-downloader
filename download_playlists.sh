@@ -48,6 +48,12 @@ download_content() {
         channel_name=$(echo "$channel_name" | xargs)
         url=$(echo "$url" | xargs)
         
+        # If no pipe delimiter found, treat the line as a URL with default channel name
+        if [[ -z "$url" ]]; then
+            url="$channel_name"
+            channel_name="Downloads"
+        fi
+        
         # Skip if URL is empty
         [[ -z "$url" ]] && continue
         
